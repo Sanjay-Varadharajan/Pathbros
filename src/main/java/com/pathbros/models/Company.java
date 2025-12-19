@@ -34,6 +34,7 @@ public class Company {
 
     @Email(message = "Email must be Valid")
     @NotEmpty(message = "Company Mail must be Included")
+    @Column(unique = true,nullable = false)
     private String companyEmail;
 
     @NotEmpty(message = "Password Cannot be Empty")
@@ -51,9 +52,10 @@ public class Company {
     private String companyPhone;
 
     @URL(message = "Company Website must be a valid URL")
+    @Column(unique = true,nullable = false)
     private String companyWebsite;
 
-    private Role companyRole;
+    private Role companyRole=Role.ROLE_RECRUITER;
 
     private boolean companyApproved = false;
 

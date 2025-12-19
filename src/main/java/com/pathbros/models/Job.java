@@ -79,4 +79,8 @@ public class Job {
     @JoinColumn(name = "companyId", nullable = false)
     @NotNull(message = "company reference is required")
     private Company jobOfCompany;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "job", cascade = CascadeType.ALL)
+    private List<SavedJob> savedJobList=new ArrayList<>();
 }

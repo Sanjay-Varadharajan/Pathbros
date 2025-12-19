@@ -34,6 +34,7 @@ public class User {
 
     @NotEmpty(message = "Email is Required")
     @Email(message = "Email should be valid")
+    @Column(unique = true,nullable = false)
     private String userEmail;
 
     @NotEmpty(message = "Password cannot be Empty")
@@ -63,9 +64,13 @@ public class User {
 
     private boolean userIsActive = true;
 
-    private Role userRole;
+    private Role userRole=Role.ROLE_USER;
 
     @JsonIgnore
     @OneToMany(mappedBy = "applicant", cascade = CascadeType.ALL)
     private List<Application> applicationList = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<SavedJob> savedJobList=new ArrayList<>();
 }
