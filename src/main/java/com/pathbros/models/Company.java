@@ -44,9 +44,8 @@ public class Company {
     @NotEmpty(message = "Location Must be Included")
     private String companyLocation;
 
-    private double companyLatitude;
-
-    private double companyLongitude;
+    @NotEmpty(message = "City must be Included")
+    private String companyCity;
 
     @NotEmpty(message = "Phone number is compulsory")
     private String companyPhone;

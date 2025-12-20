@@ -44,9 +44,8 @@ public class User {
     @NotEmpty(message = "Location is required")
     private String userLocation;
 
-    private double userLatitude;
-
-    private double userLongitude;
+    @NotEmpty(message = "City must be Included")
+    private String userCity;
 
     @ElementCollection
     @NotEmpty(message = "add at least one skill")
@@ -57,6 +56,7 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private Experience userExperience;
+
 
     @CreatedDate
     @Column(updatable = false)

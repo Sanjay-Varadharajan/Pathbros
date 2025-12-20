@@ -2,6 +2,8 @@ package com.pathbros.dtos.user;
 
 import com.pathbros.enums.Experience;
 import com.pathbros.enums.Role;
+import com.pathbros.models.User;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,4 +25,17 @@ public class UserDtoforProfile {
     private Role userRole;
     private LocalDateTime userJoinedOn;
     private boolean userIsActive;
+
+    public UserDtoforProfile(@NotNull User user) {
+        this.userId = user.getUserId();
+        this.userName = user.getUserName();
+        this.userEmail = user.getUserEmail();
+        this.userLocation = user.getUserLocation();
+        this.userSkillSets = user.getUserSkillSets();
+        this.userCollegeName = user.getUserCollegeName();
+        this.userExperience = user.getUserExperience();
+        this.userRole = user.getUserRole();
+        this.userJoinedOn = user.getUserJoinedOn();
+        this.userIsActive = user.isUserIsActive();
+    }
 }

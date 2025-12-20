@@ -1,5 +1,6 @@
 package com.pathbros.dtos.savedjob;
 
+import com.pathbros.models.SavedJob;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,4 +23,16 @@ public class SavedJobDto {
 
     private LocalDateTime savedOn;
 
+    public SavedJobDto(SavedJob savedJob) {
+        this.savedJobId = savedJob.getSavedJobId();
+
+        this.userId = savedJob.getUser().getUserId();
+        this.userName = savedJob.getUser().getUserName();
+
+        this.jobId = savedJob.getJob().getJobId();
+        this.jobTitle = savedJob.getJob().getJobTitle();
+
+        this.savedOn = savedJob.getSavedOn();
+
+    }
 }

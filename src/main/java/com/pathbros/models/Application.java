@@ -40,6 +40,8 @@ public class Application {
 
     private boolean applicationIsActive = true;
 
+    private boolean deletable = true;
+
     @CreatedDate
     @Column(updatable = false)
     private LocalDateTime appliedOn;

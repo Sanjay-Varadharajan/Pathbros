@@ -2,6 +2,7 @@ package com.pathbros.dtos.job;
 
 import com.pathbros.enums.Experience;
 import com.pathbros.enums.JobType;
+import com.pathbros.models.Job;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,4 +32,22 @@ public class JobResponseDto {
     private boolean jobIsActive;
     private String jobSalaryRange;
     private JobType jobType;
+
+    public JobResponseDto(Job job) {
+        this.jobId = job.getJobId();
+        this.jobTitle = job.getJobTitle();
+        this.jobDescription = job.getJobDescription();
+        this.jobCompanyName = job.getJobCompanyName();
+        this.jobPostedBy = job.getJobPostedBy();
+        this.jobLocation = job.getJobLocation();
+        this.jobLatitude = job.getJobLatitude();
+        this.jobLongitude = job.getJobLongitude();
+        this.jobSkillsRequired = job.getJobSkillsRequired();
+        this.jobExperience = job.getJobExperience();
+        this.jobPostedOn = job.getJobPostedOn();
+        this.jobExpiryOn = job.getJobExpiryOn();
+        this.jobIsActive = job.isJobIsActive();
+        this.jobSalaryRange = job.getJobSalaryRange();
+        this.jobType = job.getJobType();
+    }
 }

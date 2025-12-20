@@ -1,18 +1,21 @@
-package com.pathbros.dtos.application;
+    package com.pathbros.dtos.application;
 
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+    import com.pathbros.models.Application;
+    import jakarta.validation.constraints.NotNull;
+    import lombok.AllArgsConstructor;
+    import lombok.Data;
+    import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class ApplicationRequestDto {
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public class ApplicationRequestDto {
 
-    @NotNull(message = "Job ID is required")
-    private Integer jobId;
+        @NotNull(message = "Job ID is required")
+        private Integer jobId;
 
-    @NotNull(message = "User ID is required")
-    private Integer userId;
-}
+        @NotNull(message = "User ID is required")
+        private Integer userId;
+
+
+    }

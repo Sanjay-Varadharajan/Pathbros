@@ -43,9 +43,9 @@ public class Job {
     @NotEmpty(message = "Job Location Must be Filled")
     private String jobLocation;
 
-    private double jobLatitude;
+    @NotEmpty(message = "City must be Included")
+    private String jobCity;
 
-    private double jobLongitude;
 
     @ElementCollection
     @NotEmpty(message = "At least one Skill is Required")
