@@ -1,6 +1,7 @@
 package com.pathbros.dtos.application;
 
 import com.pathbros.enums.ApplicationStatus;
+import com.pathbros.models.Application;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,4 +19,10 @@ public class ApplicationStatusDto {
     private ApplicationStatus applicationStatus;
 
     private LocalDateTime appliedOn;
+
+    public ApplicationStatusDto(Application application) {
+        this.applicationId=application.getApplicationId();
+        this.applicationStatus=application.getApplicationStatus();
+        this.appliedOn=application.getAppliedOn();
+    }
 }

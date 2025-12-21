@@ -1,10 +1,9 @@
-package com.pathbros.controller;
+package com.pathbros.controller.controllerforuser;
 
 import com.pathbros.dtos.application.ApplicationRequestDto;
 import com.pathbros.dtos.application.ApplicationResponseDto;
 import com.pathbros.dtos.application.ApplicationStatusDto;
-import com.pathbros.service.ApplicationServiceForUser;
-import com.pathbros.service.UserService;
+import com.pathbros.service.UserServices.ApplicationServiceForUser;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +33,7 @@ public class ApplicationControllerForUser {
 
     @GetMapping("application/viewstatus")
     public ResponseEntity<List<ApplicationStatusDto>> viewApplicationStatus(Principal principal){
-        return applicationServiceForUser.viewApplicationStatus();
+        return applicationServiceForUser.viewApplicationStatus(principal);
     }
 
     @PostMapping("/jobs/apply")

@@ -1,8 +1,8 @@
-package com.pathbros.controller;
+package com.pathbros.controller.controllerforuser;
 
 
 import com.pathbros.dtos.user.UserDtoforProfile;
-import com.pathbros.service.UserService;
+import com.pathbros.service.UserServices.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

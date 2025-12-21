@@ -1,12 +1,9 @@
-package com.pathbros.controller;
+package com.pathbros.controller.controllerforuser;
 
-import com.pathbros.dtos.application.ApplicationRequestDto;
 import com.pathbros.dtos.job.JobResponseDto;
 import com.pathbros.enums.Experience;
 import com.pathbros.enums.JobType;
-import com.pathbros.service.JobServiceForUser;
-import com.pathbros.service.UserService;
-import jakarta.validation.Valid;
+import com.pathbros.service.UserServices.JobServiceForUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

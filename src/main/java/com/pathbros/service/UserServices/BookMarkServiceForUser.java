@@ -1,4 +1,4 @@
-package com.pathbros.service;
+package com.pathbros.service.UserServices;
 
 
 import com.pathbros.dtos.savedjob.SavedJobDto;
@@ -53,7 +53,10 @@ public class BookMarkServiceForUser {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        List<SavedJobDto> savedJobDtoList=savedJobRepo.findByUser_UserEmail(principal.getName()).stream().map(SavedJobDto::new).toList();
+        List<SavedJobDto> savedJobDtoList=savedJobRepo.findByUser_UserEmail(principal.getName())
+                .stream()
+                .map(SavedJobDto::new)
+                .toList();
 
         return ResponseEntity.ok(savedJobDtoList);
     }

@@ -71,4 +71,8 @@ public class Company {
     @JsonIgnore
     @OneToMany(mappedBy = "applicationOfCompany", cascade = CascadeType.ALL)
     private List<Application> applicationList = new ArrayList<>();
+
+
+    @Column(nullable = true)
+    private String profileImageUrl;
 }

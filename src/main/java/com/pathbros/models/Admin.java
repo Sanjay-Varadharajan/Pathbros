@@ -48,5 +48,7 @@ public class Admin {
     private LocalDateTime adminCreatedOn;
 
 
+    @Column(nullable = true)
+    private String profileImageUrl;
 
 }

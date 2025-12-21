@@ -37,6 +37,9 @@ public class Job {
     @NotEmpty(message = "Company Name Must be Filled")
     private String jobCompanyName;
 
+    @NotEmpty(message = "Company Mail Must be Filled")
+    private String jobCompanyMail;
+
     @NotEmpty(message = "Hirer Name Must be Filled")
     private String jobPostedBy;
 

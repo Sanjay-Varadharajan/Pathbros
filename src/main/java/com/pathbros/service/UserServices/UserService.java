@@ -1,21 +1,9 @@
-package com.pathbros.service;
+package com.pathbros.service.UserServices;
 
 
-import com.pathbros.dtos.application.ApplicationRequestDto;
-import com.pathbros.dtos.application.ApplicationResponseDto;
-import com.pathbros.dtos.job.JobResponseDto;
-import com.pathbros.dtos.savedjob.SavedJobDto;
 import com.pathbros.dtos.user.UserDtoforProfile;
-import com.pathbros.enums.ApplicationStatus;
-import com.pathbros.enums.Experience;
-import com.pathbros.enums.JobType;
-import com.pathbros.models.Application;
-import com.pathbros.models.Job;
-import com.pathbros.models.SavedJob;
 import com.pathbros.models.User;
-import com.pathbros.repositories.ApplicationRepo;
 import com.pathbros.repositories.JobRepo;
-import com.pathbros.repositories.SavedJobRepo;
 import com.pathbros.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
-import java.util.List;
 import java.util.Optional;
 
 @Service

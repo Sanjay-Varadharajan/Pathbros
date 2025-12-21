@@ -1,4 +1,4 @@
-package com.pathbros.service;
+package com.pathbros.service.UserServices;
 
 
 import com.pathbros.dtos.job.JobResponseDto;
@@ -6,8 +6,8 @@ import com.pathbros.enums.Experience;
 import com.pathbros.enums.JobType;
 import com.pathbros.models.User;
 import com.pathbros.repositories.JobRepo;
-import com.pathbros.repositories.SavedJobRepo;
 import com.pathbros.repositories.UserRepo;
+import com.pathbros.service.notificationservice.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,9 +26,10 @@ public class JobServiceForUser {
     @Autowired
     JobRepo jobRepo;
 
-
     @Autowired
-    SavedJobRepo savedJobRepo;
+    NotificationService notificationService;
+
+
 
     public ResponseEntity<List<JobResponseDto>> viewalljobs(Principal principal) {
         Optional<User> verifyUser=userRepo.findByUserEmail(principal.getName());
@@ -37,7 +38,10 @@ public class JobServiceForUser {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        List<JobResponseDto> allJobs=jobRepo.findAll().stream().map(JobResponseDto::new).toList();
+        List<JobResponseDto> allJobs=jobRepo.findAll()
+                .stream()
+                .map(JobResponseDto::new)
+                .toList();
 
         return ResponseEntity.ok(allJobs);
     }
@@ -51,7 +55,10 @@ public class JobServiceForUser {
         User user=userOptional.get();
         String usercity=user.getUserCity();
 
-        List<JobResponseDto> nearByJobs=jobRepo.findAllByJobCityAndJobIsActiveTrue(usercity).stream().map(JobResponseDto::new).toList();
+        List<JobResponseDto> nearByJobs=jobRepo.findAllByJobCityAndJobIsActiveTrue(usercity)
+                .stream()
+                .map(JobResponseDto::new)
+                .toList();
 
         return ResponseEntity.ok(nearByJobs);
     }
@@ -76,7 +83,10 @@ public class JobServiceForUser {
         if(userOptional.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        List<JobResponseDto> sorted=jobRepo.findAllJobsOldest().stream().map(JobResponseDto::new).toList();
+        List<JobResponseDto> sorted=jobRepo.findAllJobsOldest()
+                .stream()
+                .map(JobResponseDto::new)
+                .toList();
 
         return ResponseEntity.ok(sorted);
     }
@@ -88,7 +98,10 @@ public class JobServiceForUser {
         if(userOptional.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        List<JobResponseDto> sorted=jobRepo.findAllJobsNewest().stream().map(JobResponseDto::new).toList();
+        List<JobResponseDto> sorted=jobRepo.findAllJobsNewest()
+                .stream()
+                .map(JobResponseDto::new)
+                .toList();
 
         return ResponseEntity.ok(sorted);
     }
@@ -99,12 +112,18 @@ public class JobServiceForUser {
         if(userOptional.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        List<JobResponseDto> getJobs=jobRepo.findByJobOfCompanyIgnoreCaseAndJobIsActiveTrue(companyName).stream().map(JobResponseDto::new).toList();
+        List<JobResponseDto> getJobs=jobRepo.findByJobOfCompanyIgnoreCaseAndJobIsActiveTrue(companyName)
+                .stream()
+                .map(JobResponseDto::new)
+                .toList();
 
         if(getJobs.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return ResponseEntity.ok(getJobs);
-
     }
+
+
+
+
 }

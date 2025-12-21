@@ -1,9 +1,8 @@
-package com.pathbros.controller;
+package com.pathbros.controller.controllerforuser;
 
 
 import com.pathbros.dtos.savedjob.SavedJobDto;
-import com.pathbros.service.BookMarkServiceForUser;
-import com.pathbros.service.UserService;
+import com.pathbros.service.UserServices.BookMarkServiceForUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

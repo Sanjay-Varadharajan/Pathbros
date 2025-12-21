@@ -24,15 +24,17 @@ public class JobCreateDto {
     @NotEmpty(message = "Company Name Must be Filled")
     private String jobCompanyName;
 
+    @NotEmpty(message = "Company Mail Must be Filled")
+    private String jobCompanyMail;
+
     @NotEmpty(message = "Hirer Name Must be Filled")
     private String jobPostedBy;
 
     @NotEmpty(message = "Job Location Must be Filled")
     private String jobLocation;
 
-    private double jobLatitude;
-
-    private double jobLongitude;
+    @NotEmpty(message = "Job City Must be Filled")
+    private String jobCity;
 
     @NotEmpty(message = "At least one Skill is Required")
     private List<String> jobSkillsRequired;
