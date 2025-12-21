@@ -40,8 +40,6 @@ public class JobResponseDto {
         this.jobCompanyName = job.getJobCompanyName();
         this.jobPostedBy = job.getJobPostedBy();
         this.jobLocation = job.getJobLocation();
-        this.jobLatitude = job.getJobLatitude();
-        this.jobLongitude = job.getJobLongitude();
         this.jobSkillsRequired = job.getJobSkillsRequired();
         this.jobExperience = job.getJobExperience();
         this.jobPostedOn = job.getJobPostedOn();

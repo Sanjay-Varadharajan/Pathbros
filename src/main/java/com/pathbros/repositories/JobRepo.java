@@ -44,7 +44,7 @@ public interface JobRepo extends JpaRepository<Job,Integer> {
     @Query("SELECT j FROM Job j ORDER BY j.jobPostedOn ASC")
     List<Job> findAllJobsOldest();
 
-    List<Job> findByJobCompanyIgnoreCaseAndJobIsActiveTrue(String companyName);
+    List<Job> findByJobOfCompanyIgnoreCaseAndJobIsActiveTrue(String companyName);
 
 
 }

@@ -17,5 +17,5 @@ public interface SavedJobRepo extends JpaRepository<SavedJob,Integer> {
 
     Optional<SavedJob> findByUserAndJob(User user, Job job);
 
-    List<SavedJob> findByUser_UserMail(String userMail);
+    List<SavedJob> findByUser_UserEmail(String userMail);
 }
