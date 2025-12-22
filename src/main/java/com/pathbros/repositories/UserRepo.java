@@ -14,4 +14,8 @@ public interface UserRepo extends JpaRepository<User,Integer> {
     Optional<User> findByUserEmail(String eMail);
 
     List<User> findByUserCityAndUserIsActiveTrue(String userCity);
+
+    Optional<User> findByUserEmailAndUserIsActiveTrue(String eMail);
+
+
 }

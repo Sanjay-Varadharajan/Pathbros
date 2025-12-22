@@ -20,4 +20,6 @@ public interface ApplicationRepo extends JpaRepository<Application,Integer> {
         Optional<Application> findByAppliedJob_JobIdAndApplicant_UserEmail(int jobId, String email);
 
         List<Application> findByApplicant_UserEmail(String Email);
+
+        List<Application> findByApplicationOfCompany_companyEmail(String Email);
 }

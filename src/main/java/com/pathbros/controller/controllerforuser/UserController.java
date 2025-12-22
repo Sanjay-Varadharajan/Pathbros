@@ -29,4 +29,9 @@ public class UserController {
                                               @RequestBody UserDtoforProfile userDtoforProfile){
         return userService.editprofile(principal,userDtoforProfile);
     }
+
+    @DeleteMapping("/userprofile/deactivate")
+    public ResponseEntity<String> deactivateProfile(Principal principal){
+        return userService.deactivateProfile(principal);
+    }
 }

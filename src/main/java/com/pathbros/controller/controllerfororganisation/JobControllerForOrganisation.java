@@ -5,10 +5,7 @@ import com.pathbros.dtos.job.JobCreateDto;
 import com.pathbros.service.organisationservice.JobServiceForOrganisation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -24,4 +21,6 @@ public class JobControllerForOrganisation {
     public ResponseEntity<String> createJob(Principal principal, @RequestBody JobCreateDto jobCreateDto){
         return jobServiceForOrganisation.createjob(principal,jobCreateDto);
     }
+
+
 }

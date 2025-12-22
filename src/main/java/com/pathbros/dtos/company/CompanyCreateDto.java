@@ -28,6 +28,9 @@ public class CompanyCreateDto {
     @NotEmpty(message = "Location must be included")
     private String companyLocation;
 
+    @NotEmpty(message = "City must be included")
+    private String companyCity;
+
     @NotEmpty(message = "Phone number is compulsory")
     private String companyPhone;
 

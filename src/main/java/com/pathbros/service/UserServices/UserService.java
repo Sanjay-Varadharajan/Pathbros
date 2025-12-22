@@ -3,7 +3,6 @@ package com.pathbros.service.UserServices;
 
 import com.pathbros.dtos.user.UserDtoforProfile;
 import com.pathbros.models.User;
-import com.pathbros.repositories.JobRepo;
 import com.pathbros.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,11 +18,6 @@ public class UserService {
     @Autowired
     UserRepo userRepo;
 
-    @Autowired
-    JobRepo jobRepo;
-
-
-
 
     public ResponseEntity<UserDtoforProfile> viewprofile(Principal principal) {
 
@@ -31,7 +25,9 @@ public class UserService {
         Optional<User> userVerify=userRepo.findByUserEmail(principal.getName());
 
         if(userVerify.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .build();
         }
         UserDtoforProfile profile=new UserDtoforProfile(userVerify.get());
         return ResponseEntity.ok(profile);
@@ -42,7 +38,9 @@ public class UserService {
         Optional<User> userOptional=userRepo.findByUserEmail(principal.getName());
 
         if(userOptional.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User Not Found");
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("User Not Found");
         }
         User user=userOptional.get();
 
@@ -58,6 +56,20 @@ public class UserService {
     }
 
 
+    public ResponseEntity<String> deactivateProfile(Principal principal) {
+        Optional<User> userVerify=userRepo.findByUserEmailAndUserIsActiveTrue(principal.getName());
 
+        if(userVerify.isEmpty()){
+            return ResponseEntity
+                    .status(HttpStatus.FORBIDDEN)
+                    .body("Request is Forbidden");
+        }
+
+        User user=userVerify.get();
+        user.setUserIsActive(false);
+        userRepo.save(user);
+
+        return ResponseEntity.status(HttpStatus.OK).body("Account is Deactivated");
+    }
 }
 

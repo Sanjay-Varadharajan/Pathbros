@@ -2,6 +2,7 @@ package com.pathbros.dtos.user;
 
 import com.pathbros.enums.Experience;
 import com.pathbros.enums.Role;
+import com.pathbros.models.Company;
 import com.pathbros.models.User;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -38,4 +39,6 @@ public class UserDtoforProfile {
         this.userJoinedOn = user.getUserJoinedOn();
         this.userIsActive = user.isUserIsActive();
     }
+
+
 }

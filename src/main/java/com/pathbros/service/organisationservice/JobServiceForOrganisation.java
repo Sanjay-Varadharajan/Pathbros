@@ -79,10 +79,5 @@ public class JobServiceForOrganisation {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body("Job created successfully");
-
-
-
-
-
     }
 }
