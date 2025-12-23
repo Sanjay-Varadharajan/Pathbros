@@ -26,16 +26,14 @@ public class JobServiceForUser {
     @Autowired
     JobRepo jobRepo;
 
-    @Autowired
-    NotificationService notificationService;
 
 
 
     public ResponseEntity<List<JobResponseDto>> viewalljobs(Principal principal) {
         Optional<User> verifyUser=userRepo.findByUserEmail(principal.getName());
 
-        if(verifyUser.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        if(verifyUser.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
         List<JobResponseDto> allJobs=jobRepo.findAll()
@@ -50,7 +48,7 @@ public class JobServiceForUser {
         Optional<User> userOptional=userRepo.findByUserEmail(principal.getName());
 
         if(userOptional.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         User user=userOptional.get();
         String usercity=user.getUserCity();

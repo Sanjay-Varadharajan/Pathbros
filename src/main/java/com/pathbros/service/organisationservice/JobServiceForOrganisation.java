@@ -7,13 +7,11 @@ import com.pathbros.models.Job;
 import com.pathbros.models.Notification;
 import com.pathbros.repositories.CompanyRepo;
 import com.pathbros.repositories.JobRepo;
-import com.pathbros.repositories.NotificationRepo;
 import com.pathbros.repositories.UserRepo;
 import com.pathbros.service.notificationservice.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
@@ -41,7 +39,7 @@ public class JobServiceForOrganisation {
 
         if(companyCheck.isEmpty()){
             return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
+                    .status(HttpStatus.UNAUTHORIZED)
                     .body("Organisation Not Found");
         }
 

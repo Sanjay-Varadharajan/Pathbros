@@ -26,7 +26,7 @@ public class UserService {
 
         if(userVerify.isEmpty()){
             return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
+                    .status(HttpStatus.UNAUTHORIZED)
                     .build();
         }
         UserDtoforProfile profile=new UserDtoforProfile(userVerify.get());
@@ -39,7 +39,7 @@ public class UserService {
 
         if(userOptional.isEmpty()){
             return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
+                    .status(HttpStatus.UNAUTHORIZED)
                     .body("User Not Found");
         }
         User user=userOptional.get();

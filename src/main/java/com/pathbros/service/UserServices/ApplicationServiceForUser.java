@@ -47,7 +47,6 @@ public class ApplicationServiceForUser {
         }
 
         if (applicationRepo.existsByApplicantAndAppliedJob(userVerification.get(), verifyJob.get())) {
-
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Already applied to this job");
         }
 
@@ -67,7 +66,7 @@ public class ApplicationServiceForUser {
         Optional<User> user = userRepo.findByUserEmail(principal.getName());
 
         if (user.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
         List<ApplicationResponseDto> applicationResponseDtos = applicationRepo.findByApplicant_UserEmailAndApplicationStatus(principal.getName(), ApplicationStatus.APPLIED)
@@ -98,7 +97,7 @@ public class ApplicationServiceForUser {
         Optional<User> userCheck = userRepo.findByUserEmail(principal.getName());
 
         if (userCheck.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         List<ApplicationStatusDto> applicationStatusDtoList = applicationRepo.findByApplicant_UserEmail(principal.getName())
                 .stream()

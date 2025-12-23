@@ -41,6 +41,7 @@ public class NotificationService {
             );
         }
     }
+
     public List<Notification> getUserNotification(Principal principal){
         String userEmail= principal.getName();
         return notificationRepo.findByUser_UserEmailOrderByNotificationOnDesc(userEmail);

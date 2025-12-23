@@ -50,7 +50,7 @@ public class BookMarkServiceForUser {
         Optional<User> userOptional=userRepo.findByUserEmail(principal.getName());
 
         if(userOptional.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
         List<SavedJobDto> savedJobDtoList=savedJobRepo.findByUser_UserEmail(principal.getName())
