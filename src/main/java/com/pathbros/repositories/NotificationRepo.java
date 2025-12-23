@@ -11,4 +11,7 @@ public interface NotificationRepo extends JpaRepository<Notification,Integer> {
 
     List<Notification> findByUser_UserEmailOrderByNotificationOnDesc(String email);
 
+    List<Notification> findByCompany_CompanyEmailOrderByNotificationOnDesc(String email);
+
+
 }

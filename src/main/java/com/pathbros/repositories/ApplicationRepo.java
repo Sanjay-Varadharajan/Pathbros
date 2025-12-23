@@ -39,4 +39,14 @@ public interface ApplicationRepo extends JpaRepository<Application,Integer> {
                 @Param("collegeName") String collegeName
         );
 
+        List<Application> findByAppliedJob_JobId(int jobId);
+
+       long countByApplicationOfCompany_CompanyEmail(String companyEmail);
+
+
+
+
 }
+
+
+

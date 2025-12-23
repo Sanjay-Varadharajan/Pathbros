@@ -7,7 +7,6 @@ import com.pathbros.enums.JobType;
 import com.pathbros.models.User;
 import com.pathbros.repositories.JobRepo;
 import com.pathbros.repositories.UserRepo;
-import com.pathbros.service.notificationservice.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -110,7 +109,7 @@ public class JobServiceForUser {
         if(userOptional.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        List<JobResponseDto> getJobs=jobRepo.findByJobOfCompanyIgnoreCaseAndJobIsActiveTrue(companyName)
+        List<JobResponseDto> getJobs=jobRepo.findByJobOfCompany_CompanyEmailIgnoreCaseAndJobIsActiveTrue(companyName)
                 .stream()
                 .map(JobResponseDto::new)
                 .toList();

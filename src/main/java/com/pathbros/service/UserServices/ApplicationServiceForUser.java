@@ -3,7 +3,7 @@ package com.pathbros.service.UserServices;
 
 import com.pathbros.dtos.application.ApplicationRequestDto;
 import com.pathbros.dtos.application.ApplicationResponseDto;
-import com.pathbros.dtos.application.ApplicationStatusDto;
+import com.pathbros.dtos.application.ApplicationStatusViewDto;
 import com.pathbros.enums.ApplicationStatus;
 import com.pathbros.models.Application;
 import com.pathbros.models.Job;
@@ -11,6 +11,7 @@ import com.pathbros.models.User;
 import com.pathbros.repositories.ApplicationRepo;
 import com.pathbros.repositories.JobRepo;
 import com.pathbros.repositories.UserRepo;
+import com.pathbros.service.notificationservice.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,9 @@ public class ApplicationServiceForUser {
 
     @Autowired
     ApplicationRepo applicationRepo;
+
+    @Autowired
+    NotificationService notificationService;
 
 
     public ResponseEntity<String> applyjob(Principal principal, ApplicationRequestDto applicationRequestDto) {
@@ -58,7 +62,7 @@ public class ApplicationServiceForUser {
         application.setApplicationStatus(ApplicationStatus.APPLIED);
 
         applicationRepo.save(application);
-
+        notificationService.notifyCompanyNewApplicant(application);
         return ResponseEntity.status(HttpStatus.CREATED).body("Job Applied Successfully");
     }
 
@@ -93,15 +97,15 @@ public class ApplicationServiceForUser {
                 body("Application Withdrawn Successfully");
     }
 
-    public ResponseEntity<List<ApplicationStatusDto>> viewApplicationStatus(Principal principal) {
+    public ResponseEntity<List<ApplicationStatusViewDto>> viewApplicationStatus(Principal principal) {
         Optional<User> userCheck = userRepo.findByUserEmail(principal.getName());
 
         if (userCheck.isEmpty()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        List<ApplicationStatusDto> applicationStatusDtoList = applicationRepo.findByApplicant_UserEmail(principal.getName())
+        List<ApplicationStatusViewDto> applicationStatusDtoList = applicationRepo.findByApplicant_UserEmail(principal.getName())
                 .stream()
-                .map(ApplicationStatusDto::new)
+                .map(ApplicationStatusViewDto::new)
                 .toList();
 
         return ResponseEntity.ok(applicationStatusDtoList);

@@ -2,6 +2,7 @@ package com.pathbros.service.organisationservice;
 
 
 import com.pathbros.dtos.job.JobCreateDto;
+import com.pathbros.dtos.job.JobInactiveDto;
 import com.pathbros.models.Company;
 import com.pathbros.models.Job;
 import com.pathbros.models.Notification;
@@ -77,5 +78,23 @@ public class JobServiceForOrganisation {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body("Job created successfully");
+    }
+
+    public ResponseEntity<String> deActivateJob(Principal principal, JobInactiveDto jobInactiveDto) {
+        Optional<Job> checkForExistence=jobRepo.
+                findByJobIdAndJobIsActiveAndJobOfCompany_CompanyEmail(
+                        jobInactiveDto.getJobId(),true,principal.getName()
+                );
+
+        if(checkForExistence.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Job Not Found");
+        }
+
+        Job jobStatus=checkForExistence.get();
+        jobStatus.setJobIsActive(false);
+        jobRepo.save(jobStatus);
+
+
+        return ResponseEntity.status(HttpStatus.OK).body("Job Opening closed");
     }
 }

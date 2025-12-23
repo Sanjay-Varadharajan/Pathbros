@@ -2,7 +2,7 @@ package com.pathbros.controller.controllerforuser;
 
 import com.pathbros.dtos.application.ApplicationRequestDto;
 import com.pathbros.dtos.application.ApplicationResponseDto;
-import com.pathbros.dtos.application.ApplicationStatusDto;
+import com.pathbros.dtos.application.ApplicationStatusViewDto;
 import com.pathbros.service.UserServices.ApplicationServiceForUser;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class ApplicationControllerForUser {
     }
 
     @GetMapping("application/viewstatus")
-    public ResponseEntity<List<ApplicationStatusDto>> viewApplicationStatus(Principal principal){
+    public ResponseEntity<List<ApplicationStatusViewDto>> viewApplicationStatus(Principal principal){
         return applicationServiceForUser.viewApplicationStatus(principal);
     }
 

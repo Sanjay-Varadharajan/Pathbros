@@ -3,8 +3,6 @@ package com.pathbros.repositories;
 import com.pathbros.enums.Experience;
 import com.pathbros.enums.JobType;
 import com.pathbros.models.Job;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -44,7 +42,11 @@ public interface JobRepo extends JpaRepository<Job,Integer> {
     @Query("SELECT j FROM Job j ORDER BY j.jobPostedOn ASC")
     List<Job> findAllJobsOldest();
 
-    List<Job> findByJobOfCompanyIgnoreCaseAndJobIsActiveTrue(String companyName);
+    List<Job> findByJobOfCompany_CompanyEmailIgnoreCaseAndJobIsActiveTrue(String companyName);
 
+    Optional<Job> findByJobIdAndJobIsActiveAndJobOfCompany_CompanyEmail(int jobId,boolean isActive,String CompanyEmail);
 
+    long countByJobOfCompany_CompanyEmailAndJobIsActiveTrue(String companyMail);
+
+    long countByJobOfCompany_CompanyEmailAndJobIsActiveFalse(String companyMail);
 }

@@ -36,4 +36,5 @@ public class ApplicationControllerForOrganisation {
         return ResponseEntity.ok(filteredApplications);
     }
 
+
 }

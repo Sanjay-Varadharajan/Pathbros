@@ -28,6 +28,4 @@ public class CompanyProfileController {
         return companyProfileServiceForOrganisation.updateProfile(principal,companyUpdateDto);
     }
 
-
-
 }

@@ -33,4 +33,7 @@ public class Notification {
 
     @ManyToOne
     private User user;
+
+    @ManyToOne
+    private Company company;
 }
