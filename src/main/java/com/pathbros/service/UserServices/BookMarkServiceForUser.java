@@ -30,7 +30,7 @@ public class BookMarkServiceForUser {
     JobRepo jobRepo;
 
     public ResponseEntity<String> bookmarkjobs(int jobId, Principal principal) {
-        User user = userRepo.findByUserEmail(principal.getName()).orElseThrow();
+        User user = userRepo.findByUserEmailAndUserIsActiveTrue(principal.getName()).orElseThrow();
         Job job = jobRepo.findById(jobId).orElseThrow();
 
         Optional<SavedJob> existing = savedJobRepo.findByUserAndJob(user, job);
@@ -47,7 +47,7 @@ public class BookMarkServiceForUser {
     }
 
     public ResponseEntity<List<SavedJobDto>> bookmarks(Principal principal) {
-        Optional<User> userOptional=userRepo.findByUserEmail(principal.getName());
+        Optional<User> userOptional=userRepo.findByUserEmailAndUserIsActiveTrue(principal.getName());
 
         if(userOptional.isEmpty()){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();

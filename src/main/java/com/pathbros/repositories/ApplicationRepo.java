@@ -1,5 +1,6 @@
 package com.pathbros.repositories;
 
+import com.pathbros.dtos.job.JobApplicationCountDto;
 import com.pathbros.enums.ApplicationStatus;
 import com.pathbros.models.Application;
 import com.pathbros.models.Job;
@@ -42,6 +43,21 @@ public interface ApplicationRepo extends JpaRepository<Application,Integer> {
         List<Application> findByAppliedJob_JobId(int jobId);
 
        long countByApplicationOfCompany_CompanyEmail(String companyEmail);
+
+        @Query("""
+    SELECT new com.pathbros.dtos.job.JobApplicationCountDto(
+        j.jobId,
+        j.jobTitle,
+        COUNT(a)
+    )
+    FROM Application a
+    JOIN a.appliedJob j
+    WHERE j.jobOfCompany.companyEmail = :companyEmail
+    GROUP BY j.jobId, j.jobTitle
+    ORDER BY COUNT(a) DESC
+""")
+        List<JobApplicationCountDto> findMostAppliedJobsByCompanyEmail(@Param("companyEmail") String companyEmail);
+
 
 
 

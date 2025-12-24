@@ -39,7 +39,7 @@ public class Admin {
     private String adminPassword;
 
     @Enumerated(EnumType.STRING)
-    private Role adminRole=Role.ROLE_ADMIN;
+    private Role adminRole;
 
     private boolean adminIsActive=true;
 

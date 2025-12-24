@@ -1,6 +1,7 @@
 package com.pathbros.service.organisationservice;
 
 
+import com.pathbros.dtos.job.JobApplicationCountDto;
 import com.pathbros.models.Application;
 import com.pathbros.repositories.ApplicationRepo;
 import com.pathbros.repositories.JobRepo;
@@ -47,5 +48,9 @@ public class AnalyticsForOrganisation {
     }
 
 
-
+    public ResponseEntity<List<JobApplicationCountDto>> mostAppliedJobs(Principal principal) {
+        String companyEmail = principal.getName();
+        List<JobApplicationCountDto> jobs = applicationRepo.findMostAppliedJobsByCompanyEmail(companyEmail);
+        return ResponseEntity.ok(jobs);
+    }
 }

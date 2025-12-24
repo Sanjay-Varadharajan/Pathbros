@@ -38,7 +38,7 @@ public class ApplicationServiceForUser {
 
 
     public ResponseEntity<String> applyjob(Principal principal, ApplicationRequestDto applicationRequestDto) {
-        Optional<User> userVerification = userRepo.findByUserEmail(principal.getName());
+        Optional<User> userVerification = userRepo.findByUserEmailAndUserIsActiveTrue(principal.getName());
 
         if (userVerification.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User Not Found");
@@ -67,7 +67,7 @@ public class ApplicationServiceForUser {
     }
 
     public ResponseEntity<List<ApplicationResponseDto>> viewappliedJob(Principal principal) {
-        Optional<User> user = userRepo.findByUserEmail(principal.getName());
+        Optional<User> user = userRepo.findByUserEmailAndUserIsActiveTrue(principal.getName());
 
         if (user.isEmpty()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -98,7 +98,7 @@ public class ApplicationServiceForUser {
     }
 
     public ResponseEntity<List<ApplicationStatusViewDto>> viewApplicationStatus(Principal principal) {
-        Optional<User> userCheck = userRepo.findByUserEmail(principal.getName());
+        Optional<User> userCheck = userRepo.findByUserEmailAndUserIsActiveTrue(principal.getName());
 
         if (userCheck.isEmpty()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();

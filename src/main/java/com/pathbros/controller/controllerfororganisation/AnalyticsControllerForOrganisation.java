@@ -1,6 +1,7 @@
 package com.pathbros.controller.controllerfororganisation;
 
 
+import com.pathbros.dtos.job.JobApplicationCountDto;
 import com.pathbros.service.organisationservice.AnalyticsForOrganisation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/organisation")
@@ -31,6 +33,11 @@ public class AnalyticsControllerForOrganisation {
     @GetMapping("job/closed/total")
     public ResponseEntity<Long> totalJobsPostedClosed(Principal principal){
         return analyticsForOrganisation.totalJobsPostedClosed(principal);
+    }
+
+    @GetMapping("job/most-applied")
+    public ResponseEntity<List<JobApplicationCountDto>> mostAppliedJobs(Principal principal){
+        return analyticsForOrganisation.mostAppliedJobs(principal);
     }
 
 

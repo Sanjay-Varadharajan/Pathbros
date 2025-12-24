@@ -22,7 +22,7 @@ public class UserService {
     public ResponseEntity<UserDtoforProfile> viewprofile(Principal principal) {
 
 
-        Optional<User> userVerify=userRepo.findByUserEmail(principal.getName());
+        Optional<User> userVerify=userRepo.findByUserEmailAndUserIsActiveTrue(principal.getName());
 
         if(userVerify.isEmpty()){
             return ResponseEntity
@@ -35,7 +35,7 @@ public class UserService {
 
 
     public ResponseEntity<String> editprofile(Principal principal,UserDtoforProfile userDtoforProfile) {
-        Optional<User> userOptional=userRepo.findByUserEmail(principal.getName());
+        Optional<User> userOptional=userRepo.findByUserEmailAndUserIsActiveTrue(principal.getName());
 
         if(userOptional.isEmpty()){
             return ResponseEntity

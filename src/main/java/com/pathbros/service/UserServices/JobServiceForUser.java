@@ -29,7 +29,7 @@ public class JobServiceForUser {
 
 
     public ResponseEntity<List<JobResponseDto>> viewalljobs(Principal principal) {
-        Optional<User> verifyUser=userRepo.findByUserEmail(principal.getName());
+        Optional<User> verifyUser=userRepo.findByUserEmailAndUserIsActiveTrue(principal.getName());
 
         if(verifyUser.isEmpty()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -44,7 +44,7 @@ public class JobServiceForUser {
     }
 
     public ResponseEntity<List<JobResponseDto>> nearbyjobs(Principal principal) {
-        Optional<User> userOptional=userRepo.findByUserEmail(principal.getName());
+        Optional<User> userOptional=userRepo.findByUserEmailAndUserIsActiveTrue(principal.getName());
 
         if(userOptional.isEmpty()){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -75,7 +75,7 @@ public class JobServiceForUser {
 
     public ResponseEntity<List<JobResponseDto>> sortbyposteddateasc(Principal principal) {
 
-        Optional<User> userOptional=userRepo.findByUserEmail(principal.getName());
+        Optional<User> userOptional=userRepo.findByUserEmailAndUserIsActiveTrue(principal.getName());
 
         if(userOptional.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -90,7 +90,7 @@ public class JobServiceForUser {
 
 
     public ResponseEntity<List<JobResponseDto>> sortbyposteddatedesc(Principal principal) {
-        Optional<User> userOptional=userRepo.findByUserEmail(principal.getName());
+        Optional<User> userOptional=userRepo.findByUserEmailAndUserIsActiveTrue(principal.getName());
 
         if(userOptional.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -104,7 +104,7 @@ public class JobServiceForUser {
     }
 
     public ResponseEntity<List<JobResponseDto>> getjobbycompany(String companyName,Principal principal) {
-        Optional<User> userOptional=userRepo.findByUserEmail(principal.getName());
+        Optional<User> userOptional=userRepo.findByUserEmailAndUserIsActiveTrue(principal.getName());
 
         if(userOptional.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
