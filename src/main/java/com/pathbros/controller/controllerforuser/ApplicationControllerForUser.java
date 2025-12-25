@@ -13,7 +13,7 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/user")
+@RequestMapping("/api/user")
 public class ApplicationControllerForUser {
 
 
@@ -31,7 +31,7 @@ public class ApplicationControllerForUser {
         return applicationServiceForUser.withdrawAppliedjob(principal,jobId);
     }
 
-    @GetMapping("application/viewstatus")
+    @GetMapping("/application/viewstatus")
     public ResponseEntity<List<ApplicationStatusViewDto>> viewApplicationStatus(Principal principal){
         return applicationServiceForUser.viewApplicationStatus(principal);
     }

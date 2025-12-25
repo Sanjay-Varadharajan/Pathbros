@@ -21,21 +21,21 @@ public class AnalyticsControllerForOrganisation {
     AnalyticsForOrganisation analyticsForOrganisation;
 
 
-    @GetMapping("application/total")
+    @GetMapping("/application/total")
     public ResponseEntity<Long> totalApplication(Principal principal){
         return analyticsForOrganisation.totalApplication(principal);
     }
-    @GetMapping("job/active/total")
+    @GetMapping("/job/active/total")
     public ResponseEntity<Long> totalJobsPostedActive(Principal principal){
         return analyticsForOrganisation.totalJobsPostedActive(principal);
     }
 
-    @GetMapping("job/closed/total")
+    @GetMapping("/job/closed/total")
     public ResponseEntity<Long> totalJobsPostedClosed(Principal principal){
         return analyticsForOrganisation.totalJobsPostedClosed(principal);
     }
 
-    @GetMapping("job/most-applied")
+    @GetMapping("/job/most-applied")
     public ResponseEntity<List<JobApplicationCountDto>> mostAppliedJobs(Principal principal){
         return analyticsForOrganisation.mostAppliedJobs(principal);
     }

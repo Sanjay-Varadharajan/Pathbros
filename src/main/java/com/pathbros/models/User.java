@@ -65,7 +65,7 @@
 
         private boolean userIsActive = true;
 
-        private Role userRole=Role.ROLE_USER;
+        private Role userRole;
 
         @JsonIgnore
         @OneToMany(mappedBy = "applicant", cascade = CascadeType.ALL)

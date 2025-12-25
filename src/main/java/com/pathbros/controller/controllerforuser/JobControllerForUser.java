@@ -12,7 +12,7 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/user")
+@RequestMapping("/api/user")
 public class JobControllerForUser {
 
 
@@ -44,17 +44,17 @@ public class JobControllerForUser {
         return jobServiceForUser.filterjobs(city,title,experience,jobType,skill);
     }
 
-    @GetMapping("jobs/sortedby/asc/posteddate")
+    @GetMapping("/jobs/sortedby/asc/posteddate")
     public ResponseEntity<List<JobResponseDto>> sortbyposteddateasc(Principal principal){
         return jobServiceForUser.sortbyposteddateasc(principal);
     }
 
-    @GetMapping("jobs/sortedby/desc/posteddate")
+    @GetMapping("/jobs/sortedby/desc/posteddate")
     public ResponseEntity<List<JobResponseDto>> sortbyposteddatedesc(Principal principal){
         return jobServiceForUser.sortbyposteddatedesc(principal);
     }
 
-    @GetMapping("jobs/company")
+    @GetMapping("/jobs/company")
     public ResponseEntity<List<JobResponseDto>> getjobbycompany(@RequestParam String companyName,Principal principal){
         return jobServiceForUser.getjobbycompany(companyName,principal);
     }

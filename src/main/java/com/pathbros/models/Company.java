@@ -75,4 +75,6 @@ public class Company {
 
     @Column(nullable = true)
     private String profileImageUrl;
+
+
 }

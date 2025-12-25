@@ -23,7 +23,7 @@
             return jobServiceForOrganisation.createjob(principal,jobCreateDto);
         }
 
-        @PatchMapping("job/close")
+        @PatchMapping("/job/close")
         public ResponseEntity<String> deactivateJob(Principal principal, @RequestBody JobInactiveDto jobInactiveDto){
             return jobServiceForOrganisation.deActivateJob(principal,jobInactiveDto);
         }

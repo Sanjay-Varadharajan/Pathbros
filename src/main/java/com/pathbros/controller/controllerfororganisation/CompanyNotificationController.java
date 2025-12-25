@@ -19,7 +19,7 @@ public class CompanyNotificationController {
     CompanyNotificationService notificationService;
 
 
-    @GetMapping("notifications/view")
+    @GetMapping("/notifications/view")
     public List<Notification> notifications(Principal principal){
         return notificationService.notifications(principal);
     }
