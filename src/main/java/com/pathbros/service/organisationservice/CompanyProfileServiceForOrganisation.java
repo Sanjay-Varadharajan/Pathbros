@@ -21,7 +21,7 @@ public class CompanyProfileServiceForOrganisation {
 
     public ResponseEntity<CompanyDto> viewProfile(Principal principal) {
         Optional<Company> checkForCompanyExists=companyRepo
-                .findByCompanyEmail(principal.getName());
+                .findByCompanyEmailAndCompanyIsActiveTrue(principal.getName());
 
         return checkForCompanyExists
                 .map(CompanyDto::new)
@@ -32,7 +32,7 @@ public class CompanyProfileServiceForOrganisation {
     public ResponseEntity<String> updateProfile(Principal principal, CompanyUpdateDto companyUpdateDto) {
 
         Optional<Company> checkForCompanyExists=companyRepo
-                .findByCompanyEmail(principal.getName());
+                .findByCompanyEmailAndCompanyIsActiveTrue(principal.getName());
 
         if(checkForCompanyExists.isEmpty()){
             return ResponseEntity

@@ -31,4 +31,6 @@ public class AdminControllerForApplication {
         return adminServiceForApplication.viewApplicationByUser(principal,fetchApplicationDto);
     }
 
+
+
 }

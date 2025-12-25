@@ -7,6 +7,8 @@ import java.util.Optional;
 
 public interface CompanyRepo extends JpaRepository<Company,Integer> {
 
-    Optional<Company> findByCompanyEmail(String Email);
+    Optional<Company> findByCompanyEmailAndCompanyIsActiveTrue(String Email);
+
+    Optional<Company> findByCompanyIdAndCompanyIsActiveTrue(int CompanyId);
 
 }

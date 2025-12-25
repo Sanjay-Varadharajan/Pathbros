@@ -28,7 +28,7 @@ public class ApplicationServiceForOrganisation {
     CompanyRepo companyRepo;
 
     public ResponseEntity<List<ApplicationViewDtoForCompany>> viewDtoForCompanies(Principal principal) {
-        Optional<Company> companyExists = companyRepo.findByCompanyEmail(principal.getName());
+        Optional<Company> companyExists = companyRepo.findByCompanyEmailAndCompanyIsActiveTrue(principal.getName());
 
         if (companyExists.isEmpty()) {
             return ResponseEntity

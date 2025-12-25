@@ -1,24 +1,22 @@
 package com.pathbros.service.adminservice;
 
 
+import com.pathbros.dtos.admin.AdminDeactivateDto;
+import com.pathbros.dtos.admin.CompanyDeactivateByAdmin;
 import com.pathbros.dtos.company.CompanyCreateDto;
+import com.pathbros.dtos.company.CompanyDto;
 import com.pathbros.models.Admin;
 import com.pathbros.models.Company;
 import com.pathbros.repositories.AdminRepo;
 import com.pathbros.repositories.CompanyRepo;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
-import org.hibernate.validator.constraints.URL;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.expression.spel.ast.OpAnd;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -43,7 +41,7 @@ public class AdminServiceForCompany {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Not Allowed");
         }
 
-        Optional<Company> companyExists=companyRepo.findByCompanyEmail(companyCreateDto.getCompanyEmail());
+        Optional<Company> companyExists=companyRepo.findByCompanyEmailAndCompanyIsActiveTrue(companyCreateDto.getCompanyEmail());
 
         if(companyExists.isPresent()){
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Company Already Exists");
@@ -63,6 +61,42 @@ public class AdminServiceForCompany {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body("Company "+companyCreateDto.getCompanyName()+" Is Added");
+    }
 
+    public ResponseEntity<String> deactivateCompany(Principal principal, CompanyDeactivateByAdmin companyDeactivateByAdmin) {
+        Optional<Admin> loggedInAdmin=adminRepo.findByAdminEmail(principal.getName());
+
+        if(loggedInAdmin.isEmpty()){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Only Admin can Perform this Action");
+        }
+        Optional<Company> company=companyRepo.findByCompanyIdAndCompanyIsActiveTrue(companyDeactivateByAdmin.getCompanyId());
+
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Unauthorized");
+        }
+
+        if(company.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Company Not Found");
+        }
+
+
+        Company companyDeactivate=company.get();
+        companyDeactivate.setCompanyIsActive(false);
+        companyRepo.save(companyDeactivate);
+
+        return ResponseEntity.status(HttpStatus.OK).body("Company Deactivated");
+    }
+
+    public ResponseEntity<List<CompanyDto>> viewAllCompany(Principal principal) {
+        Optional<Admin> loggedInAdmin=adminRepo.findByAdminEmail(principal.getName());
+
+        if(loggedInAdmin.isEmpty()){
+            return ResponseEntity.status(401).build();
+        }
+
+        List<CompanyDto> listOfCompanies=companyRepo.findAll().stream().map(CompanyDto::new).toList();
+
+        return ResponseEntity.ok(listOfCompanies);
     }
 }

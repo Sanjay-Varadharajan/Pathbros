@@ -36,7 +36,7 @@ public class JobServiceForOrganisation {
 
 
     public ResponseEntity<String> createjob(Principal principal, JobCreateDto jobCreateDto) {
-        Optional<Company> companyCheck=companyRepo.findByCompanyEmail(principal.getName());
+        Optional<Company> companyCheck=companyRepo.findByCompanyEmailAndCompanyIsActiveTrue(principal.getName());
 
         if(companyCheck.isEmpty()){
             return ResponseEntity
