@@ -30,7 +30,7 @@ public class AdminControllerForCompany {
         return adminServiceForCompany.deactivateCompany(principal,companyDeactivateByAdmin);
     }
 
-    @GetMapping("view/company/all")
+    @GetMapping("/view/company/all")
     public ResponseEntity<List<CompanyDto>> viewAllCompany(Principal principal){
         return adminServiceForCompany.viewAllCompany(principal);
     }

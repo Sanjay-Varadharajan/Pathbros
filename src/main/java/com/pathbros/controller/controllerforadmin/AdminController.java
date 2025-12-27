@@ -32,7 +32,7 @@ public class AdminController {
         return adminService.deActivateAdmin(principal,adminDeactivateDto);
     }
 
-    @GetMapping("view/all/admin")
+    @GetMapping("/view/all/admin")
     public ResponseEntity<List<AdminDto>> viewAllAdmin(Principal principal){
         return adminService.viewAllAdmin(principal);
     }
