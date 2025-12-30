@@ -2,6 +2,7 @@ package com.pathbros.filter;
 
 import com.pathbros.jwt.JwtUtils;
 import com.pathbros.service.userdetailservice.CustomUserDetailService;
+import com.pathbros.service.userdetailservice.CustomUserDetails;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,38 +25,37 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final CustomUserDetailService userDetailService;
 
 
+
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
-        String authHeader=request.getHeader("Authorization");
-        String token=null;
-        String userEmail=null;
+        String authHeader = request.getHeader("Authorization");
+        String token = null;
+        String userEmail = null;
 
-        if(authHeader!=null && authHeader.startsWith("Bearer ")){
-            token=authHeader.substring(7).trim();
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            token = authHeader.substring(7).trim();
             try {
-                if(jwtUtils.validateToken(token)){
-                    userEmail=jwtUtils.getUserMailForToken(token);
+                if (jwtUtils.validateToken(token)) {
+                    userEmail = jwtUtils.getUserMailForToken(token);
                 }
-            }
-            catch (Exception e){
-                System.out.println("JWT validation failed: " + e.getMessage());
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"Invalid or Expired Token");
+            } catch (Exception e) {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid or Expired Token");
                 return;
             }
         }
-        if (userEmail!=null && SecurityContextHolder.getContext().getAuthentication()==null){
-            UserDetails userDetails=userDetailService.loadUserByUsername(userEmail);
-            UsernamePasswordAuthenticationToken authenticationToken=
-                    new UsernamePasswordAuthenticationToken(
-                            userDetails,null,userDetails.getAuthorities()
-                    );
+
+        if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            CustomUserDetails userDetails = (CustomUserDetails) userDetailService.loadUserByUsername(userEmail);
+            UsernamePasswordAuthenticationToken authenticationToken =
+                    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
 
-        filterChain.doFilter(request,response);
+        filterChain.doFilter(request, response);
     }
 }
+

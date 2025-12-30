@@ -10,6 +10,7 @@ import com.pathbros.repositories.AdminRepo;
 import com.pathbros.repositories.CompanyRepo;
 import com.pathbros.repositories.UserRepo;
 import com.pathbros.service.userdetailservice.CustomUserDetailService;
+import com.pathbros.service.userdetailservice.CustomUserDetails;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,13 +42,13 @@ public class AuthenticationController {
     BCryptPasswordEncoder passwordEncoder;
 
     @PostMapping("/signup/user")
-    public ResponseEntity<String> signUp(@Valid @RequestBody UserSignUpDto userSignUpDto){
-        if (userRepo.findByUserEmailAndUserIsActiveTrue(userSignUpDto.getUserEmail()).isPresent()){
+    public ResponseEntity<String> signUp(@Valid @RequestBody UserSignUpDto userSignUpDto) {
+        if (userRepo.findByUserEmailAndUserIsActiveTrue(userSignUpDto.getUserEmail()).isPresent()) {
             return ResponseEntity.badRequest().body("User already exists!");
         }
 
 
-        User user=new User();
+        User user = new User();
         user.setUserName(userSignUpDto.getUserName());
         user.setUserEmail(userSignUpDto.getUserEmail());
         user.setUserPassword(passwordEncoder.encode(userSignUpDto.getUserPassword()));
@@ -64,20 +65,19 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPassword())
-        );
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
+            );
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new AuthResponse("Invalid credentials"));
+        }
+        CustomUserDetails userDetails = (CustomUserDetails) userDetailsService.loadUserByUsername(request.getEmail());
+        String role = userDetails.getAuthorities().iterator().next().getAuthority();
 
-        var userDetails=userDetailsService.loadUserByUsername(request.getEmail());
-
-        String jwt=jwtUtils
-                .generateToken(userDetails.getUsername(),
-                        Role.valueOf(userDetails.getAuthorities().iterator().next().getAuthority())
-                );
+        String jwt = jwtUtils.generateToken(userDetails.getUsername(), Role.valueOf(role));
 
         return ResponseEntity.ok(new AuthResponse(jwt));
-
     }
-
-
 }
